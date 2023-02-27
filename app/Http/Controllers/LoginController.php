@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginController extends Controller
 {
@@ -22,11 +23,12 @@ class LoginController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate();
             if (auth()->user()->role == 'admin') {
+                Alert::success('Selamat Datang');
                 return redirect()->route('admin.home')->with('success', 'Berhasil Masuk');
             } else if (auth()->user()->role == 'petugas') {
                 return redirect()->route('petugas.home');
             } else {
-                return redirect()->route('home');
+                return redirect()->route('user.home');
             }
         } else {
             return redirect()->route('login')->with('error', 'Wrong email or password');

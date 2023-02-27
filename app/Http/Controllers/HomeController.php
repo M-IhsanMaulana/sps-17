@@ -16,7 +16,10 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('welcome');
+        $id = Auth()->user()->id;
+        $pengaduan = Pengaduan::where('user_id', $id)->get();
+
+        return view('users.dashboard', compact('pengaduan'));
     }
 
     public function petugasHome()

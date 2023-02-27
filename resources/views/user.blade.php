@@ -205,7 +205,7 @@
                     <ul class="sidebar-menu">
                         <li class="menu-header">Dashboard</li>
                         <li class="{{ Request::segment(2) === null ? 'active' : null }}">
-                            <a class="nav-link" href="{{ route('admin.home') }}"><i class="fas fa-dashboard"></i>
+                            <a class="nav-link" href="{{ route('user.home') }}"><i class="fas fa-dashboard"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
@@ -217,12 +217,7 @@
                         </li>
                         <li class="{{ Request::segment(2) === 'data-category' ? 'active' : null }}">
                             <a class="nav-link" href="{{ route('admin.data-category') }}"><i class="fas fa-school"></i>
-                                <span>Data Category</span>
-                            </a>
-                        </li>
-                        <li class="{{ Request::segment(2) === 'data-pengaduan' ? 'active' : null }}">
-                            <a class="nav-link" href="{{ route('admin.data-pengaduan') }}"><i class="fas fa-bank"></i>
-                                <span>Data Pengaduan</span>
+                                <span>Buat Pengaduan</span>
                             </a>
                         </li>
                     </ul>

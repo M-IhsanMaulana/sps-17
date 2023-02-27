@@ -14,13 +14,23 @@
         <div class="section-body">
 
 
+            @if (Session::has('success'))
+                <div class="alert alert-primary alert-dismissible show fade">
+                    <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                        {{ Session::get('success') }}
+                    </div>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
                             <h4>Data Pengaduan</h4>
                             <hr>
-                            <a href="#" class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-user-plus"></i> Buat Akun</a>
+                            <a href="#" class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-file-export"></i> Export</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -36,7 +46,7 @@
                                             <th>Judul Pengaduan</th>
                                             <th>Tgl Lapor</th>
                                             <th>Foto</th>
-                                            <th>Role</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -44,37 +54,33 @@
                                         @php
                                         $no = 1;
                                         @endphp
-                                        @foreach ($data as $user)
+                                        @foreach ($data as $pengaduan)
                                         <tr>
                                             <td class="text-center">
                                                 {{ $no++ }}
                                             </td>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->username }}</td>
-                                            <td>{{ $user->email }}</td>
+                                            @if ($pengaduan->tipe_pengadu == 'anonim')
+                                            <td>Anonim</td>
+                                            @else
+                                            <td>{{ $pengaduan->nama_pengadu }}</td>
+                                            @endif
+                                            <td>{{ $pengaduan->tipe_pengadu }}</td>
+                                            <td>{{ $pengaduan->idpengaduan }}</td>
+                                            <td>{{ $pengaduan->judul_pengaduan }}</td>
+                                            <td>{{ $pengaduan->tgl_pengaduan }}</td>
                                             <td>
-                                                @if ($user->foto == null)
-                                                <img alt="image" src="{{ asset('storage/data-image/avatar-1.png') }}" class="rounded-circle" width="35" data-toggle="tooltip" title="{{ $user->name }}">
+                                                <img alt="image" src="{{ asset('storage/data-image/'. $pengaduan->bukti_pengaduan) }}" class="rounded-circle" width="35" data-toggle="tooltip" title="{{ $pengaduan->judul_pengaduan }}">
+                                            </td>
+                                            <td>
+                                                @if ($pengaduan->status == 'success')
+                                                <div class="badge badge-success text-uppercase">{{ $pengaduan->status }}</div>
+                                                @elseif ($pengaduan->status == 'process')
+                                                <div class="badge badge-warning text-uppercase">{{ $pengaduan->status }}</div>
                                                 @else
-                                                <img alt="image" src="{{ asset('storage/data-image/'. $user->foto) }}" class="rounded-circle" width="35" data-toggle="tooltip" title="{{ $user->name }}">
+                                                <div class="badge badge-danger text-uppercase">{{ $pengaduan->status }}</div>
                                                 @endif
                                             </td>
-                                            <td>
-                                                <div class="badge badge-success text-uppercase">{{ $user->role }}</div>
-                                            </td>
-                                            <td class="text-center">
-                                                <form action="{{ route('admin.data-user.delete', $user->id) }}" method="POST">
-                                                    @csrf
-                                                    <input name="_method" type="hidden" value="DELETE">
-                                                    <button type="submit"
-                                                        class="btn btn-icon icon-left btn-danger"
-                                                        id="show"
-                                                        data-toggle="tooltip" title="Delete">
-                                                        <i class="fa-solid fa-trash-alt"></i>
-                                                    </button>
-                                                </form>
-
-                                            </td>
+                                            <td><a href="{{ route('admin.detail-pengaduan', $pengaduan->id) }}" class="btn btn-secondary">Detail</a></td>
                                         </tr>
                                         @endforeach
                                     </tbody>

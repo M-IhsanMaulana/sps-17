@@ -34,7 +34,7 @@ class AdminController extends Controller
     public function detailPengaduan($id)
     {
         $pengaduan = Pengaduan::findOrFail($id);
-        return view('admin.detail-pengaduan', compact('pengaduan'));
+        return view('admin.detail', compact('pengaduan'));
     }
     //CREATE DATA FOR ADMIN
     public function createUser(Request $request)
@@ -89,7 +89,14 @@ class AdminController extends Controller
     // Deleted Data
     public function deleteCategory($id)
     {
-        $kelas = Category::find($id);
+        $category = Category::find($id);
+        $category->delete();
+        return redirect()->route('admin.data-category')->with('success', 'Berhasil menghapus kelas dengan id'. $id);
+    }
+
+    public function deleteUser($id)
+    {
+        $kelas = User::find($id);
         $kelas->delete();
         return redirect()->route('admin.data-category')->with('success', 'Berhasil menghapus kelas dengan id'. $id);
     }

@@ -14,7 +14,7 @@ class Pengaduan extends Model
         'user_id',
         'tipe_mengadu',
         'category_id',
-        'id_pengaduan',
+        'idpengaduan',
         'judul_pengaduan',
         'detail_pengaduan',
         'tgl_pengaduan',
@@ -31,5 +31,17 @@ class Pengaduan extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getAutoNumberOptions()
+    {
+        return [
+            'idpengaduan' => [
+                'format' => function () {
+                    return 'PSV' . date('dmY') . '?'; // autonumber format. '?' will be replaced with the generated number.
+                },
+                'length' => 3 // The number of digits in the autonumber
+            ]
+        ];
     }
 }

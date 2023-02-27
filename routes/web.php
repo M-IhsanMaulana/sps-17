@@ -30,7 +30,7 @@ Route::post('/login/auth', [LoginController::class, 'login_action'])->name('logi
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'user-access:user'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('user.home');
 });
 
 
@@ -47,15 +47,16 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/data-user', [AdminController::class, 'userData'])->name('admin.data-user');
     Route::get('/admin/data-category',[AdminController::class, 'categoryData'])->name('admin.data-category');
     Route::get('/admin/input-user', [AdminController::class, 'inputuser'])->name('admin.input-user');
-    Route::get('/admin/data-pengaduan/{id}/detail', [AdminController::class, 'detailPengaduan'])->name('admin.detail-pengaduan');
+    Route::get('/admin/data-pengaduan/detail/{id}', [AdminController::class, 'detailPengaduan'])->name('admin.detail-pengaduan');
 
     // Tipe Post
-    Route::post('/admin/input-user/save', [AdminController::class, 'createUser'])->name('admin.createuser');
+    Route::post('/admin/data-user/create/save', [AdminController::class, 'createUser'])->name('admin.data-user.create');
     Route::post('/admin/input-category', [AdminController::class, 'createCategory'])->name('admin.data-category.create');
     //Post Update
-    Route::patch('/admin/data-pengaduan/{id}/detail/update', [AdminController::class, 'updatePengaduan'])->name('admin.update-pengaduan');
+    Route::patch('/admin/data-pengaduan/detail/update/{id}', [AdminController::class, 'updatePengaduan'])->name('admin.update-pengaduan');
 
     //Tipe Destroy
     Route::delete('/admin/data-category/delete/{id}', [AdminController::class, 'deleteCategory'])->name('admin.data-category.delete');
+    Route::delete('/admin/data-user/delete/{id}', [AdminController::class, 'deleteUser'])->name('admin.data-user.delete');
     Route::get('/admin/data-pengaduan/{id}/delete', [AdminController::class, 'deletePengaduan'])->name('admin.delete-pengaduan');
 });

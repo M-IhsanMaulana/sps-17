@@ -14,6 +14,16 @@
         <div class="section-body">
 
 
+            @if (Session::has('success'))
+                <div class="alert alert-primary alert-dismissible show fade">
+                    <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                        {{ Session::get('success') }}
+                    </div>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -66,7 +76,7 @@
                                                     <input name="_method" type="hidden" value="DELETE">
                                                     <button type="submit"
                                                         class="btn btn-icon icon-left btn-danger"
-                                                        id="show"
+                                                        id="show-confirmation-user"
                                                         data-toggle="tooltip" title="Delete">
                                                         <i class="fa-solid fa-trash-alt"></i>
                                                     </button>

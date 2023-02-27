@@ -68,7 +68,7 @@
                                 @elseif ($pengaduan->status == 'reject')
                                 <option value="sending" selected>Sending</option>
                                 <option value="process">Process</option>
-                                <option value="reject">Reject</option>
+                                <option value="reject">R9eject</option>
                                 <option value="success">Success</option>
                                 @endif
                             </select>
@@ -89,7 +89,7 @@
                         @else
                         <div class="mb-3 col-md-12">
                             <label for="tanggapan_pengaduan" class="form-label">Tanggapan Mengenai Pengaduan</label>
-                            <textarea name="tanggapan_pengaduan" class="form-control" id="tanggapan_pengaduan" rows="3" style="resize:none"></textarea>
+                            <textarea name="tanggapan_pengaduan" class="form-control" id="tanggapan_pengaduan" rows="3" ></textarea>
                         </div>
                         @endif
                     </div>

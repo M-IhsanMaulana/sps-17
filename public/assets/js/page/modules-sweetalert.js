@@ -102,3 +102,46 @@ $("#show-confirmation").click(function (event) {
             }
         });
 });
+
+$("#show-confirmation-user").click(function (event) {
+    var form = $(this).closest("form");
+    var name = $(this).data("name");
+    event.preventDefault();
+    const swalWithBootstrapButtons = swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger m-2",
+        },
+        buttonsStyling: false,
+    });
+
+    swalWithBootstrapButtons
+        .fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: true,
+        })
+        .then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+                swalWithBootstrapButtons.fire(
+                    "Deleted!",
+                    "Your file has been deleted.",
+                    "success"
+                );
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    "Cancelled",
+                    "Your imaginary file is safe :)",
+                    "error"
+                );
+            }
+        });
+});

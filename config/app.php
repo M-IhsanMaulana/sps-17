@@ -186,6 +186,7 @@ return [
          * Package Service Providers...
          */
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        Alfa6661\AutoNumber\AutoNumberServiceProvider::class,
 
         /*
          * Application Service Providers...

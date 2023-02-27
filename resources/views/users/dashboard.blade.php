@@ -1,4 +1,4 @@
-@extends('admin')
+@extends('user')
 @section('title', 'Dashboard')
 @section('content')
 <div class="main-content">
@@ -21,7 +21,6 @@
             @endif
         <div class="section-body">
             <h2 class="section-title">Hallo, Selamat datang {{ Auth()->user()->name }}</h2>
-            <p class="section-lead">Terdapat {{ $pengaduan->count() }} Laporan pengaduan silahkan di cek di <a href="{{ route('admin.data-pengaduan') }}">data</a></p>
 
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
@@ -34,7 +33,7 @@
                                 <h4>Total User</h4>
                             </div>
                             <div class="card-body">
-                                {{ $userdata->count() }}
+                                {{ $pengaduan->count() }}
                             </div>
                         </div>
                     </div>
@@ -49,7 +48,7 @@
                                 <h4>Total Kategori</h4>
                             </div>
                             <div class="card-body">
-                                {{ $category->count() }}
+                                {{-- {{ $category->count() }} --}}1
                             </div>
                         </div>
                     </div>
@@ -64,7 +63,7 @@
                                 <h4>Total Pengaduan</h4>
                             </div>
                             <div class="card-body">
-                                {{ $pengaduan->count() }}
+                                {{-- {{ $pengaduan->count() }} --}}1
                             </div>
                         </div>
                     </div>
