@@ -22,9 +22,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Error Handling
-Route::get('/notrole', [ErrorController::class, 'index'])->name('salah');
-
 //Auth Routes list
 Route::get('/register', [RegisterController::class, 'register'])->name('register');
 Route::post('/register/save', [RegisterController::class, 'store_register'])->name('register.action');
@@ -54,10 +51,11 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     // Tipe Post
     Route::post('/admin/input-user/save', [AdminController::class, 'createUser'])->name('admin.createuser');
-    Route::post('/admin/input-category', [AdminController::class, 'createCategory'])->name('admin.createcategory');
+    Route::post('/admin/input-category', [AdminController::class, 'createCategory'])->name('admin.data-category.create');
     //Post Update
     Route::patch('/admin/data-pengaduan/{id}/detail/update', [AdminController::class, 'updatePengaduan'])->name('admin.update-pengaduan');
 
     //Tipe Destroy
+    Route::delete('/admin/data-category/delete/{id}', [AdminController::class, 'deleteCategory'])->name('admin.data-category.delete');
     Route::get('/admin/data-pengaduan/{id}/delete', [AdminController::class, 'deletePengaduan'])->name('admin.delete-pengaduan');
 });

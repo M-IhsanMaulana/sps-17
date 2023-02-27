@@ -21,19 +21,14 @@ class AdminController extends Controller
 
     public function userData()
     {
-        $data = User::paginate(10);
+        $data = User::all();
         return view('admin.datauser', compact('data'));
     }
 
     public function categoryData()
     {
-        $data = Category::paginate(10);
+        $data = Category::all();
         return view('admin.datacategory', compact('data'));
-    }
-
-    public function inputuser()
-    {
-        return view('admin.input-user');
     }
 
     public function detailPengaduan($id)
@@ -91,7 +86,14 @@ class AdminController extends Controller
         return redirect()->route('admin.data-pengaduan')->with('success', 'Data berhasil diperbarui dengan status pengaduan '. $request->status);
     }
 
-    // Deleted Data From Pengaduan
+    // Deleted Data
+    public function deleteCategory($id)
+    {
+        $kelas = Category::find($id);
+        $kelas->delete();
+        return redirect()->route('admin.data-category')->with('success', 'Berhasil menghapus kelas dengan id'. $id);
+    }
+
     public function deletePengaduan($id)
     {
         Pengaduan::whereId($id)->delete();

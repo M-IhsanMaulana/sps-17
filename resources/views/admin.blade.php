@@ -2,331 +2,380 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>@yield('title') | Seventeen Bank</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/seventeen-bank.svg') }}" />
 
-    <title>Dashboard - {{ config('app.name', 'Laravel') }}</title>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/modules/fontawesome/css/all.min.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <meta name="description" content="" />
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="{{ asset('assets/modules/jqvmap/dist/jqvmap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/modules/weather-icon/css/weather-icons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/modules/weather-icon/css/weather-icons-wind.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/modules/summernote/summernote-bs4.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/modules/select2/dist/css/select2.min.css') }}">
+    {{-- Data Table --}}
+    <link rel="stylesheet" href="{{ asset('assets/modules/datatables/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
+    {{-- Other --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/modules/jquery-selectric/selectric.css') }}">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('/assets/img/favicon/favicon.ico') }}" />
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
+    <!-- Start GA -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet" />
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
 
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}"
-        class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
-
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
-
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
-
-    <!-- Page CSS -->
-
-    <!-- Helpers -->
-    <script src="assets/vendor/js/helpers.js"></script>
-
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('assets/js/config.js') }}"></script>
+        gtag('config', 'UA-94034622-3');
+    </script>
+    <!-- /END GA -->
 </head>
 
 <body>
-
-    @if (Session::has('success'))
-        <div class="bs-toast toast toast-placement-ex m-2 fade show bg-success top-0 right-0 float-end" role="alert"
-            aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <i class="bx bx-bell me-2"></i>
-                <div class="me-auto fw-semibold">SPS-17 Notify</div>
-                <small>11 mins ago</small>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                {{ Session::get('success') }}
-            </div>
-        </div>
-    @endif
-    <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
-        <div class="layout-container">
-            <!-- Menu -->
-            <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-                <div class="app-brand demo">
-                    <a href="/admin" class="app-brand-link">
-                        <span class="app-brand-logo demo">
-                            <svg width="25" viewBox="0 0 25 42" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <defs>
-                                    <path
-                                        d="M13.7918663,0.358365126 L3.39788168,7.44174259 C0.566865006,9.69408886 -0.379795268,12.4788597 0.557900856,15.7960551 C0.68998853,16.2305145 1.09562888,17.7872135 3.12357076,19.2293357 C3.8146334,19.7207684 5.32369333,20.3834223 7.65075054,21.2172976 L7.59773219,21.2525164 L2.63468769,24.5493413 C0.445452254,26.3002124 0.0884951797,28.5083815 1.56381646,31.1738486 C2.83770406,32.8170431 5.20850219,33.2640127 7.09180128,32.5391577 C8.347334,32.0559211 11.4559176,30.0011079 16.4175519,26.3747182 C18.0338572,24.4997857 18.6973423,22.4544883 18.4080071,20.2388261 C17.963753,17.5346866 16.1776345,15.5799961 13.0496516,14.3747546 L10.9194936,13.4715819 L18.6192054,7.984237 L13.7918663,0.358365126 Z"
-                                        id="path-1"></path>
-                                    <path
-                                        d="M5.47320593,6.00457225 C4.05321814,8.216144 4.36334763,10.0722806 6.40359441,11.5729822 C8.61520715,12.571656 10.0999176,13.2171421 10.8577257,13.5094407 L15.5088241,14.433041 L18.6192054,7.984237 C15.5364148,3.11535317 13.9273018,0.573395879 13.7918663,0.358365126 C13.5790555,0.511491653 10.8061687,2.3935607 5.47320593,6.00457225 Z"
-                                        id="path-3"></path>
-                                    <path
-                                        d="M7.50063644,21.2294429 L12.3234468,23.3159332 C14.1688022,24.7579751 14.397098,26.4880487 13.008334,28.506154 C11.6195701,30.5242593 10.3099883,31.790241 9.07958868,32.3040991 C5.78142938,33.4346997 4.13234973,34 4.13234973,34 C4.13234973,34 2.75489982,33.0538207 2.37032616e-14,31.1614621 C-0.55822714,27.8186216 -0.55822714,26.0572515 -4.05231404e-15,25.8773518 C0.83734071,25.6075023 2.77988457,22.8248993 3.3049379,22.52991 C3.65497346,22.3332504 5.05353963,21.8997614 7.50063644,21.2294429 Z"
-                                        id="path-4"></path>
-                                    <path
-                                        d="M20.6,7.13333333 L25.6,13.8 C26.2627417,14.6836556 26.0836556,15.9372583 25.2,16.6 C24.8538077,16.8596443 24.4327404,17 24,17 L14,17 C12.8954305,17 12,16.1045695 12,15 C12,14.5672596 12.1403557,14.1461923 12.4,13.8 L17.4,7.13333333 C18.0627417,6.24967773 19.3163444,6.07059163 20.2,6.73333333 C20.3516113,6.84704183 20.4862915,6.981722 20.6,7.13333333 Z"
-                                        id="path-5"></path>
-                                </defs>
-                                <g id="g-app-brand" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g id="Brand-Logo" transform="translate(-27.000000, -15.000000)">
-                                        <g id="Icon" transform="translate(27.000000, 15.000000)">
-                                            <g id="Mask" transform="translate(0.000000, 8.000000)">
-                                                <mask id="mask-2" fill="white">
-                                                    <use xlink:href="#path-1"></use>
-                                                </mask>
-                                                <use fill="#696cff" xlink:href="#path-1"></use>
-                                                <g id="Path-3" mask="url(#mask-2)">
-                                                    <use fill="#696cff" xlink:href="#path-3"></use>
-                                                    <use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-3"></use>
-                                                </g>
-                                                <g id="Path-4" mask="url(#mask-2)">
-                                                    <use fill="#696cff" xlink:href="#path-4"></use>
-                                                    <use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-4"></use>
-                                                </g>
-                                            </g>
-                                            <g id="Triangle"
-                                                transform="translate(19.000000, 11.000000) rotate(-300.000000) translate(-19.000000, -11.000000) ">
-                                                <use fill="#696cff" xlink:href="#path-5"></use>
-                                                <use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-5"></use>
-                                            </g>
-                                        </g>
-                                    </g>
-                                </g>
-                            </svg>
-                        </span>
-                        <span
-                            class="app-brand-text demo menu-text fw-bolder ms-2">{{ config('app.name', 'Laravel') }}</span>
-                    </a>
-
-                    <a href="javascript:void(0);"
-                        class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-                        <i class="bx bx-chevron-left bx-sm align-middle"></i>
-                    </a>
-                </div>
-
-                <div class="menu-inner-shadow"></div>
-
-                <ul class="menu-inner py-1">
-                    <!-- Dashboard -->
-                    <li class="menu-item {{ Request::segment(2) === null ? 'active' : null }}">
-                        <a href="/admin" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics">Dashboard</div>
-                        </a>
-                    </li>
-
-                    <li class="menu-header small text-uppercase">
-                        <span class="menu-header-text">Pages</span>
-                    </li>
-                    <li class="menu-item {{ Request::segment(2) === 'data-pengaduan' ? 'active' : null }}">
-                        <a href="{{ route('admin.data-pengaduan') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bxs-chat"></i>
-                            <div data-i18n="Analytics">Data Pengaduan</div>
-                        </a>
-                    </li>
-                    <li class="menu-item {{ Request::segment(2) === 'data-user' ? 'active' : null }}">
-                        <a href="{{ route('admin.data-user') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-user"></i>
-                            <div data-i18n="Analytics">Data User</div>
-                        </a>
-                    </li>
-                    <li class="menu-item {{ Request::segment(2) === 'data-category' ? 'active' : null }}">
-                        <a href="{{ route('admin.data-category') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bxs-category"></i>
-                            <div data-i18n="Analytics">Data Category</div>
-                        </a>
-                    </li>
-                    <li class="menu-item {{ Request::segment(2) === 'input-user' ? 'active' : null }}">
-                        <a href="{{ route('admin.input-user') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-user-plus"></i>
-                            <div data-i18n="Analytics">Tambah User</div>
-                        </a>
-                    </li>
-                </ul>
-            </aside>
-            <!-- / Menu -->
-
-            <!-- Layout container -->
-            <div class="layout-page">
-                <!-- Navbar -->
-
-                <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-                    id="layout-navbar">
-                    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-                        <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                            <i class="bx bx-menu bx-sm"></i>
-                        </a>
-                    </div>
-
-                    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-                        <!-- Search -->
-                        <div class="navbar-nav align-items-center">
-                            <div class="nav-item d-flex align-items-center">
-                                <i class="bx bx-search fs-4 lh-0"></i>
-                                <input type="text" class="form-control border-0 shadow-none"
-                                    placeholder="Search..." aria-label="Search..." />
+    <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+            <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar">
+                <form class="form-inline mr-auto">
+                    <ul class="navbar-nav mr-3">
+                        <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i
+                                    class="fas fa-bars"></i></a></li>
+                        <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i
+                                    class="fas fa-search"></i></a></li>
+                    </ul>
+                    <div class="search-element">
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search"
+                            data-width="250">
+                        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+                        <div class="search-backdrop"></div>
+                        <div class="search-result">
+                            <div class="search-header">
+                                Histories
+                            </div>
+                            <div class="search-item">
+                                <a href="#">How to hack NASA using CSS</a>
+                                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
+                            </div>
+                            <div class="search-item">
+                                <a href="#">Kodinger.com</a>
+                                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
+                            </div>
+                            <div class="search-item">
+                                <a href="#">#Stisla</a>
+                                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
+                            </div>
+                            <div class="search-header">
+                                Result
+                            </div>
+                            <div class="search-item">
+                                <a href="#">
+                                    <img class="mr-3 rounded" width="30" src="assets/img/products/product-3-50.png"
+                                        alt="product">
+                                    oPhone S9 Limited Edition
+                                </a>
+                            </div>
+                            <div class="search-item">
+                                <a href="#">
+                                    <img class="mr-3 rounded" width="30" src="assets/img/products/product-2-50.png"
+                                        alt="product">
+                                    Drone X2 New Gen-7
+                                </a>
+                            </div>
+                            <div class="search-item">
+                                <a href="#">
+                                    <img class="mr-3 rounded" width="30" src="assets/img/products/product-1-50.png"
+                                        alt="product">
+                                    Headphone Blitz
+                                </a>
+                            </div>
+                            <div class="search-header">
+                                Projects
+                            </div>
+                            <div class="search-item">
+                                <a href="#">
+                                    <div class="search-icon bg-danger text-white mr-3">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+                                    Stisla Admin Template
+                                </a>
+                            </div>
+                            <div class="search-item">
+                                <a href="#">
+                                    <div class="search-icon bg-primary text-white mr-3">
+                                        <i class="fas fa-laptop"></i>
+                                    </div>
+                                    Create a new Homepage Design
+                                </a>
                             </div>
                         </div>
-                        <!-- /Search -->
-
-                        <ul class="navbar-nav flex-row align-items-center ms-auto">
-                            <!-- Place this tag where you want the button to render. -->
-
-                            <!-- User -->
-                            <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
-                                    data-bs-toggle="dropdown">
-                                    <div class="avatar avatar-online">
-                                        @if (Auth::user()->foto == null)
-                                            <img src="{{ asset('storage/data-image/default-profile.png') }}"
-                                                alt="Avatar" class="w-px-40 h-auto rounded-circle" />
-                                        @else
-                                            <img src="{{ asset('storage/data-image/' . Auth::user()->foto) }}"
-                                                alt="Avatar" class="w-px-40 h-auto rounded-circle" />
-                                        @endif
+                    </div>
+                </form>
+                <ul class="navbar-nav navbar-right">
+                    <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+                            class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a>
+                        <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                            <div class="dropdown-header">Messages
+                                <div class="float-right">
+                                    <a href="#">Mark All As Read</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-list-content dropdown-list-message">
+                                <a href="#" class="dropdown-item dropdown-item-unread">
+                                    <div class="dropdown-item-avatar">
+                                        <img alt="image" src="assets/img/avatar/avatar-1.png"
+                                            class="rounded-circle">
+                                        <div class="is-online"></div>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>Kusnaedi</b>
+                                        <p>Hello, Bro!</p>
+                                        <div class="time">10 Hours Ago</div>
                                     </div>
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <div class="d-flex">
-                                                <div class="flex-shrink-0 me-3">
-                                                    <div class="avatar avatar-online">
-                                                        @if (Auth::user()->foto == null)
-                                                            <img src="{{ asset('storage/data-image/default-profile.png') }}"
-                                                                alt="Avatar"
-                                                                class="w-px-40 h-auto rounded-circle" />
-                                                        @else
-                                                            <img src="{{ asset('storage/data-image' . Auth::user()->foto) }}"
-                                                                alt="Avatar"
-                                                                class="w-px-40 h-auto rounded-circle" />
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
-                                                    <small
-                                                        class="text-muted text-uppercase">{{ Auth::user()->role }}</small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="dropdown-divider"></div>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="bx bx-user me-2"></i>
-                                            <span class="align-middle">My Profile</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="bx bx-cog me-2"></i>
-                                            <span class="align-middle">Settings</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="dropdown-divider"></div>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('logout') }}">
-                                            <i class="bx bx-power-off me-2"></i>
-                                            <span class="align-middle">Log Out</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!--/ User -->
-                        </ul>
-                    </div>
-                </nav>
-
-                <!-- / Navbar -->
-
-                <!-- Content wrapper -->
-                <div class="content-wrapper">
-                    @yield('content')
-                </div>
-                <!-- Footer -->
-                <footer class="content-footer footer bg-footer-theme">
-                    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                        <div class="mb-2 mb-md-0">
-                            ©
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script>
-                            , made with ❤️ by
-                            <a href="" target="_blank" class="footer-link fw-bolder">Ihsan Maulana</a>
+                                <a href="#" class="dropdown-item dropdown-item-unread">
+                                    <div class="dropdown-item-avatar">
+                                        <img alt="image" src="assets/img/avatar/avatar-2.png"
+                                            class="rounded-circle">
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>Dedik Sugiharto</b>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                                        <div class="time">12 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item dropdown-item-unread">
+                                    <div class="dropdown-item-avatar">
+                                        <img alt="image" src="assets/img/avatar/avatar-3.png"
+                                            class="rounded-circle">
+                                        <div class="is-online"></div>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>Agung Ardiansyah</b>
+                                        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        <div class="time">12 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-avatar">
+                                        <img alt="image" src="assets/img/avatar/avatar-4.png"
+                                            class="rounded-circle">
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>Ardian Rahardiansyah</b>
+                                        <p>Duis aute irure dolor in reprehenderit in voluptate velit ess</p>
+                                        <div class="time">16 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-avatar">
+                                        <img alt="image" src="assets/img/avatar/avatar-5.png"
+                                            class="rounded-circle">
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>Alfa Zulkarnain</b>
+                                        <p>Exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+                                        <div class="time">Yesterday</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="dropdown-footer text-center">
+                                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                            </div>
                         </div>
-                        <div>
-                            <a href="https://themeselection.com/license/" class="footer-link me-4"
-                                target="_blank">License</a>
-                            <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More
-                                Themes</a>
-
-                            <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                                target="_blank" class="footer-link me-4">Documentation</a>
-
-                            <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                                target="_blank" class="footer-link me-4">Support</a>
+                    </li>
+                    <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+                            class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
+                        <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                            <div class="dropdown-header">Notifications
+                                <div class="float-right">
+                                    <a href="#">Mark All As Read</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-list-content dropdown-list-icons">
+                                <a href="#" class="dropdown-item dropdown-item-unread">
+                                    <div class="dropdown-item-icon bg-primary text-white">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        Template update is available now!
+                                        <div class="time text-primary">2 Min Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-icon bg-info text-white">
+                                        <i class="far fa-user"></i>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>You</b> and <b>Dedik Sugiharto</b> are now friends
+                                        <div class="time">10 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-icon bg-success text-white">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>Kusnaedi</b> has moved task <b>Fix bug header</b> to <b>Done</b>
+                                        <div class="time">12 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-icon bg-danger text-white">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        Low disk space. Let's clean it!
+                                        <div class="time">17 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-icon bg-info text-white">
+                                        <i class="fas fa-bell"></i>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        Welcome to Stisla template!
+                                        <div class="time">Yesterday</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="dropdown-footer text-center">
+                                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                            </div>
                         </div>
+                    </li>
+                    <li class="dropdown"><a href="#" data-toggle="dropdown"
+                            class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                           @if (Auth::user()->foto == null)
+                           <img alt="image" src="{{ asset('storage/data-image/avatar-1.png') }}" class="rounded-circle mr-1">
+                           @else
+                           <img alt="image" src="{{ asset('storage/data-image/' . Auth::user()->foto ) }}" class="rounded-circle mr-1">
+                           @endif
+                            <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth()->user()->name }}</div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-title">Logged in 5 min ago</div>
+                            <a href="features-profile.html" class="dropdown-item has-icon">
+                                <i class="far fa-user"></i> Profile
+                            </a>
+                            <a href="features-activities.html" class="dropdown-item has-icon">
+                                <i class="fas fa-bolt"></i> Activities
+                            </a>
+                            <a href="features-settings.html" class="dropdown-item has-icon">
+                                <i class="fas fa-cog"></i> Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="main-sidebar sidebar-style-2">
+                <aside id="sidebar-wrapper">
+                    <div class="sidebar-brand">
+                        <a href="index.html">Pengaduan Sekolah</a>
                     </div>
-                </footer>
-                <!-- / Footer -->
+                    <div class="sidebar-brand sidebar-brand-sm">
+                        <a href="index.html">SPS - 17</a>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li class="menu-header">Dashboard</li>
+                        <li class="{{ Request::segment(2) === null ? 'active' : null }}">
+                            <a class="nav-link" href="{{ route('admin.home') }}"><i class="fas fa-dashboard"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="menu-header">Master Data</li>
+                        <li class="{{ Request::segment(2) === 'data-user' ? 'active' : null }}">
+                            <a class="nav-link" href="{{ route('admin.data-user') }}"><i class="fas fa-user-alt"></i>
+                                <span>Data User</span>
+                            </a>
+                        </li>
+                        <li class="{{ Request::segment(2) === 'data-category' ? 'active' : null }}">
+                            <a class="nav-link" href="{{ route('admin.data-category') }}"><i class="fas fa-school"></i>
+                                <span>Data Category</span>
+                            </a>
+                        </li>
+                        <li class="{{ Request::segment(2) === 'data-pengaduan' ? 'active' : null }}">
+                            <a class="nav-link" href="{{ route('admin.data-pengaduan') }}"><i class="fas fa-bank"></i>
+                                <span>Data Pengaduan</span>
+                            </a>
+                        </li>
+                    </ul>
 
-                <div class="content-backdrop fade"></div>
+                    <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+                        <a href="{{ route('logout') }}" class="btn btn-danger btn-lg btn-block btn-icon-split">
+                            <i class="fas fa-sign-out-alt"></i> Logout Account
+                        </a>
+                    </div>
+                </aside>
             </div>
-            <!-- Content wrapper -->
+
+            <!-- Main Content -->
+            @yield('content')
+            <footer class="main-footer">
+                <div class="footer-left">
+                    Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad
+                        Nauval Azhar</a>
+                </div>
+                <div class="footer-right">
+
+                </div>
+            </footer>
         </div>
-        <!-- / Layout page -->
     </div>
 
-    <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
-    </div>
-    <!-- / Layout wrapper -->
+    <!-- General JS Scripts -->
+    <script src="{{ asset('assets/modules/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/popper.js') }}"></script>
+    <script src="{{ asset('assets/modules/tooltip.js') }}"></script>
+    <script src="{{ asset('assets/modules/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/js/stisla.js') }}"></script>
 
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-
-    <script src="../assets/vendor/js/menu.js"></script>
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
-
-    <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
-
-    <!-- Page JS -->
-    <script src="../assets/js/dashboards-analytics.js"></script>
-
-    <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- JS Libraies -->
+    <script src="{{ asset('assets/modules/simple-weather/jquery.simpleWeather.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/chart.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/jqvmap/dist/jquery.vmap.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
+    <script src="{{ asset('assets/modules/summernote/summernote-bs4.js') }}"></script>
+    <script src="{{ asset('assets/modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/jquery-selectric/jquery.selectric.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('assets/dist/jquery.maskMoney.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/cleave.min.js" integrity="sha512-KaIyHb30iXTXfGyI9cyKFUIRSSuekJt6/vqXtyQKhQP6ozZEGY8nOtRS6fExqE4+RbYHus2yGyYg1BrqxzV6YA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Page Specific JS File -->
+    <<!-- Page Specific JS File -->
+        <script src="{{ asset('assets/js/page/index-0.js') }}"></script>
+        <script src="{{ asset('assets/js/page/forms-advanced-forms.js') }}"></script>
+        <script src="{{ asset('assets/js/page/modules-datatables.js') }}"></script>
+        @include('sweetalert::alert')
+        <script src="{{ asset('assets/js/page/modules-sweetalert.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+        <!-- Template JS File -->
+        <script src="{{ asset('assets/js/scripts.js') }}"></script>
+        <script src="{{ asset('assets/js/custom.js') }}"></script>
 </body>
 
 </html>

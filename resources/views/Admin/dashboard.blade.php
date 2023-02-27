@@ -1,133 +1,173 @@
 @extends('admin')
+@section('title', 'Dashboard')
 @section('content')
-    <!-- Content -->
-    <div class="container-xxl flex-grow-1 container-p-y">
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h1>Dashboard Admin</h1><hr>
+        </div>
         <div class="row">
-            <div class="col-lg-8 mb-4 order-0">
-                <div class="card">
-                    <div class="d-flex align-items-end row">
-                        <div class="col-sm-7">
-                            <div class="card-body">
-                                <h5 class="card-title text-primary">Selamat datang {{ Auth::user()->name }} 🎉</h5>
-                                <p class="mb-4">
-                                    SPS-17 Memiliki <span class="fw-bold">{{ $pengaduan->count('pengaduan.id') }}</span> Pengaduan. Silahkan cek pengaduan
-                                    dengan klik tombol dibawah
-                                </p>
-
-                                <a href="{{ route('admin.data-pengaduan') }}" class="btn btn-sm btn-outline-primary">Lihat Data</a>
-                            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-primary">
+                        <i class="far fa-user"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Total User</h4>
                         </div>
-                        <div class="col-sm-5 text-center text-sm-left">
-                            <div class="card-body pb-0 px-0 px-md-4">
-                                <img src="../assets/img/illustrations/man-with-laptop-light.png" height="140"
-                                    alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png"
-                                    data-app-light-img="illustrations/man-with-laptop-light.png" />
-                            </div>
+                        <div class="card-body">
+                            {{ $userdata->count() }}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 order-1">
-                <div class="row">
-                    <div class="col-lg-6 col-md-12 col-6 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card-title d-flex align-items-start justify-content-between">
-                                    <div class="avatar flex-shrink-0">
-                                        <button type="button" class="btn btn-icon btn-outline-success">
-                                            <span class="tf-icons bx bx-user"></span>
-                                          </button>
-                                    </div>
-                                    <div class="dropdown">
-                                        <button class="btn p-0" type="button" id="cardOpt3" data-bs-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
-                                            <a class="dropdown-item" href="{{ route('admin.data-user') }}">View More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="fw-semibold d-block mb-1">User</span>
-                                @if ($userdata->count('userdata.id') < 10)
-                                <h3 class="card-title mb-2">0{{ $userdata->count('userdata.id') }} User</h3>
-                                @else
-                                <h3 class="card-title mb-2">{{ $userdata->count('userdata.id') }} User</h3>
-                                @endif
-                                <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> Terdaftar</small>
-                            </div>
-                        </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-danger">
+                        <i class="fas fa-school"></i>
                     </div>
-                    <div class="col-lg-6 col-md-12 col-6 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card-title d-flex align-items-start justify-content-between">
-                                    <div class="avatar flex-shrink-0">
-                                        <button type="button" class="btn btn-icon btn-outline-primary">
-                                            <span class="tf-icons bx bxs-report"></span>
-                                          </button>
-                                    </div>
-                                    <div class="dropdown">
-                                        <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                                            <a class="dropdown-item" href="{{ route('admin.data-pengaduan') }}">View More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span>Pengaduan</span>
-                                @if ($pengaduan->count('pengaduan.id') < 10)
-                                <h5 class="card-title mb-2">0{{ $pengaduan->count('pengaduan.id') }}  Pengaduan</h5>
-                                @else
-                                <h5 class="card-title mb-2">{{ $pengaduan->count('pengaduan.id') }}  Pengaduan</h5>
-                                @endif
-                                <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> Masuk</small>
-                            </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Total Kelas</h4>
+                        </div>
+                        <div class="card-body">
+                            {{ $category->count() }}
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
-                <div class="row">
-                    <div class="col-6 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card-title d-flex align-items-start justify-content-between">
-                                    <div class="avatar flex-shrink-0">
-                                        <button type="button" class="btn btn-icon btn-outline-warning">
-                                            <span class="tf-icons bx bx-category"></span>
-                                          </button>
-                                    </div>
-                                    <div class="dropdown">
-                                        <button class="btn p-0" type="button" id="cardOpt4" data-bs-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
-                                            <a class="dropdown-item" href="{{ route('admin.data-category') }}">View More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="d-block mb-1">Category</span>
-                                @if ($category->count('category.id') < 10)
-                                <h4 class="card-title mb-2">0{{ $userdata->count('category.id') }} Category</h4>
-                                @else
-                                <h4 class="card-title mb-2">{{ $category->count('category.id') }}</h4>
-                                @endif
-                                <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> Terdaftar</small>
-                            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-warning">
+                        <i class="fas fa-bank"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Total Rekening</h4>
+                        </div>
+                        <div class="card-body">
+                            {{ $pengaduan->count() }}
                         </div>
                     </div>
-
-                    <!-- </div>
-          <div class="row"> -->
-
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-success">
+                        <i class="fas fa-money-bills"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Total Transaksi</h4>
+                        </div>
+                        <div class="card-body">
+                            {{-- {{ $transaksi->count() }} --}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- / Content -->
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-12 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Statistics</h4>
+                        <div class="card-header-action">
+                            <div class="btn-group">
+                                <a href="#" class="btn btn-primary">Week</a>
+                                <a href="#" class="btn">Month</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="myChart" height="182"></canvas>
+                        <div class="statistic-details mt-sm-4">
+                            <div class="statistic-details-item">
+                                <span class="text-muted"><span class="text-primary"><i
+                                            class="fas fa-caret-up"></i></span> 7%</span>
+                                <div class="detail-value">$243</div>
+                                <div class="detail-name">Today's Sales</div>
+                            </div>
+                            <div class="statistic-details-item">
+                                <span class="text-muted"><span class="text-danger"><i
+                                            class="fas fa-caret-down"></i></span> 23%</span>
+                                <div class="detail-value">$2,902</div>
+                                <div class="detail-name">This Week's Sales</div>
+                            </div>
+                            <div class="statistic-details-item">
+                                <span class="text-muted"><span class="text-primary"><i
+                                            class="fas fa-caret-up"></i></span>9%</span>
+                                <div class="detail-value">$12,821</div>
+                                <div class="detail-name">This Month's Sales</div>
+                            </div>
+                            <div class="statistic-details-item">
+                                <span class="text-muted"><span class="text-primary"><i
+                                            class="fas fa-caret-up"></i></span> 19%</span>
+                                <div class="detail-value">$92,142</div>
+                                <div class="detail-name">This Year's Sales</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 col-12 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Recent Activities</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled list-unstyled-border">
+                            <li class="media">
+                                <img class="mr-3 rounded-circle" width="50"
+                                    src="assets/img/avatar/avatar-1.png" alt="avatar">
+                                <div class="media-body">
+                                    <div class="float-right text-primary">Now</div>
+                                    <div class="media-title">Farhan A Mujib</div>
+                                    <span class="text-small text-muted">Cras sit amet nibh libero, in
+                                        gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</span>
+                                </div>
+                            </li>
+                            <li class="media">
+                                <img class="mr-3 rounded-circle" width="50"
+                                    src="assets/img/avatar/avatar-2.png" alt="avatar">
+                                <div class="media-body">
+                                    <div class="float-right">12m</div>
+                                    <div class="media-title">Ujang Maman</div>
+                                    <span class="text-small text-muted">Cras sit amet nibh libero, in
+                                        gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</span>
+                                </div>
+                            </li>
+                            <li class="media">
+                                <img class="mr-3 rounded-circle" width="50"
+                                    src="assets/img/avatar/avatar-3.png" alt="avatar">
+                                <div class="media-body">
+                                    <div class="float-right">17m</div>
+                                    <div class="media-title">Rizal Fakhri</div>
+                                    <span class="text-small text-muted">Cras sit amet nibh libero, in
+                                        gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</span>
+                                </div>
+                            </li>
+                            <li class="media">
+                                <img class="mr-3 rounded-circle" width="50"
+                                    src="assets/img/avatar/avatar-4.png" alt="avatar">
+                                <div class="media-body">
+                                    <div class="float-right">21m</div>
+                                    <div class="media-title">Alfa Zulkarnain</div>
+                                    <span class="text-small text-muted">Cras sit amet nibh libero, in
+                                        gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="text-center pt-1 pb-1">
+                            <a href="#" class="btn btn-primary btn-lg btn-round">
+                                View All
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 @endsection

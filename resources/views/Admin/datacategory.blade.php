@@ -1,96 +1,124 @@
 @extends('admin')
+@section('title', 'Data Kategori')
 @section('content')
-    <!-- Content wrapper -->
-    <div class="content-wrapper">
-        <!-- Content -->
-
-        <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"><a href="/admin">Home</a> /</span> Data User</h4>
-
-            <!-- Bootstrap Table with Caption -->
-            <div class="card">
-                <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="mb-0">Data Category</h5>
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#categorymodal"><i
-                            class='bx bx-list-plus'></i> Tambah</button>
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>Data of Category</h1>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item"><a href="{{ route('admin.home') }}"><i class="fa-solid fa-dashboard"></i>
+                            Dashboard</a></div>
+                    <div class="breadcrumb-item active" aria-current="page">Data Category</div>
                 </div>
-                <div class="table-responsive text-nowrap">
-                    <table class="table">
-                        <caption class="ms-4">
-                            Total Category : {{ $data->count('category.id') }}
-                        </caption>
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $no = 1;
-                            @endphp
-                            @if ($data->count('category.id') == 0)
-                                <tr>
-                                    <td colspan="8"
-                                        class="justify-content-center align-items-center text-center text-muted">Belum ada
-                                        data nya.</td>
-                                </tr>
-                            @else
-                                @foreach ($data as $item)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>
-                                            <a href="" class="btn btn-sm rounded-pill btn-primary"><i
-                                                    class='bx bx-list-ul'></i></a>
-                                            <a href="" class="btn btn-sm rounded-pill btn-danger"><i
-                                                    class='bx bx-trash-alt'></i></a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
-                    <div class="content-wrapper">
-                        {{ $data->links() }}
+            </div>
+
+            @if (Session::has('success'))
+                <div class="alert alert-primary alert-dismissible show fade">
+                    <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                        {{ Session::get('success') }}
+                    </div>
+                </div>
+            @endif
+            <div class="section-body">
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Data Kategori</h4>
+                                <hr>
+                                <button class="btn btn-icon icon-left btn-primary" data-toggle="modal"
+                                    data-target="#exampleModal">
+                                    <i class="fa-solid fa-plus-circle"></i>
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped" id="table-1">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">
+                                                    No
+                                                </th>
+                                                <th>Nama</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                                $no = 1;
+                                            @endphp
+                                            @foreach ($data as $category)
+                                                <tr>
+                                                    <td class="text-center">
+                                                        {{ $no++ }}
+                                                    </td>
+                                                    <td>{{ $category->name }}</td>
+                                                    <td class="text-center">
+                                                        <form action="{{ route('admin.data-category.delete', $category->id) }}" method="POST">
+                                                            @csrf
+                                                            <input name="_method" type="hidden" value="DELETE">
+                                                            <button type="submit"
+                                                                class="btn btn-icon icon-left btn-danger"
+                                                                id="show-confirmation"
+                                                                data-toggle="tooltip" title="Delete">
+                                                                <i class="fa-solid fa-trash-alt"></i>
+                                                            </button>
+                                                        </form>
+
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Bootstrap Table with Caption -->
-            <div class="modal fade" id="categorymodal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel2">Tambah Category</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form action="{{ route('admin.createcategory') }}" method="POST">
-                            @csrf
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col mb-3">
-                                        <label for="nameSmall" class="form-label">Nama Category</label>
-                                        <input type="text" name="name" id="nameSmall" class="form-control"
-                                            placeholder="Masukan Nama" />
+        </section>
+        {{-- Modal 1 --}}
+        <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Tambah Kategori Pengaduan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST" action="{{ route('admin.data-category.create') }}" class="needs-validation"
+                        novalidate="">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Nama Kelas</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-school"></i>
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Masukan nama kategori"
+                                        name="name" tabindex="1" required autofocus>
+                                    <div class="invalid-feedback">
+                                        Silahkan masukan nama Kategori
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                    Close
-                                </button>
-                                <button type="submit" class="btn btn-primary">Simpan Data</button>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="modal-footer bg-whitesmoke br">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <!-- / Content -->
-
-
-        <div class="content-backdrop fade"></div>
     </div>
-    <!-- Content wrapper -->
 @endsection
