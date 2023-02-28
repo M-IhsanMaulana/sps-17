@@ -12,7 +12,8 @@ class Pengaduan extends Model
     protected $table = 'tb_pengaduan';
     protected $fillable = [
         'user_id',
-        'tipe_mengadu',
+        'nama_pengadu',
+        'tipe_pengadu',
         'category_id',
         'idpengaduan',
         'judul_pengaduan',
@@ -20,7 +21,7 @@ class Pengaduan extends Model
         'tgl_pengaduan',
         'bukti_pengaduan',
         'status',
-        'taggapan'
+        'tanggapan_pengaduan'
     ];
 
     public function category()

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Register | Seventeen Bank</title>
+    <title>Register | Pengaduan Sekolah</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/seventeen-bank.svg') }}" />
 
     <!-- General CSS Files -->

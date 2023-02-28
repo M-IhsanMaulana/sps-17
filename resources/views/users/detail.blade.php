@@ -1,4 +1,4 @@
-@extends('admin')
+@extends('user')
 @section('title', 'Detail Pengaduan')
 @section('content')
     <div class="main-content">
@@ -17,7 +17,7 @@
                         <div class="card-header">
                             <h4>Detail Laporan Pengaduan</h4>
                             <hr>
-                            <a href="{{ route('admin.data-pengaduan') }}" class="btn btn-primary btn-icon"><i
+                            <a href="{{ route('user.data-pengaduan') }}" class="btn btn-primary btn-icon"><i
                                     class="fas fa-arrow-left"></i> Back</a>
                         </div>
                         <div class="card-body">
@@ -41,10 +41,10 @@
                                 <div class="author-box-name">
                                     <a href="#" id="nama-nasabah">{{ $pengaduan->nama_pengadu }}</a>
                                 </div>
-                                <div class="author-box-job">Laporan Tanggal <span>{{ $pengaduan->tgl_pengaduan }}</span>
+                                <div class="author-box-job">Tanggal Pengaduan <span>{{ $pengaduan->tgl_pengaduan }}</span>
                                 </div>
                                 <hr>
-                                <div class="author-box-job">Id Pengaduan <span> {{ $pengaduan->idpengaduan }}</span>
+                                <div class="author-box-job">ID Pengaduan {{ $pengaduan->idpengaduan }},-</span>
                                 </div>
                                 <div class="author-box-description">
                                     <div class="form-group">
@@ -63,28 +63,25 @@
                                         <label>Detail Laporan Pengaduan</label>
                                         <textarea name="" id="" cols="30" rows="10" class="form-control " disabled readonly>{{ $pengaduan->detail_pengaduan }}</textarea>
                                     </div>
-                                    <form action="{{ route('admin.update-pengaduan', $pengaduan->id) }}" method="post">
-                                        @method('PATCH')
-                                        {{ csrf_field() }}
                                         <div class="form-group ">
                                             <label class="text-md-right text-left mt-2">Update Status Laporan</label>
                                             <div class="">
                                                 @if ($pengaduan->status !== 'success')
                                                 <select class="form-control selectric" name="status">
                                                     @if ($pengaduan->status == 'sending')
-                                                        <option value="sending" selected>Sending</option>
+                                                        <option value="sending" selected disabled>Sending</option>
                                                         <option value="process">Process</option>
                                                         <option value="reject">Reject</option>
                                                         <option value="success">Success</option>
                                                     @elseif($pengaduan->status == 'process')
                                                         <option value="sending">Sending</option>
-                                                        <option value="process" selected>Process</option>
+                                                        <option value="process" selected disabled>Process</option>
                                                         <option value="reject">Reject</option>
                                                         <option value="success">Success</option>
                                                     @elseif ($pengaduan->status == 'reject')
-                                                        <option value="sending" selected>Sending</option>
+                                                        <option value="sending">Sending</option>
                                                         <option value="process">Process</option>
-                                                        <option value="reject">R9eject</option>
+                                                        <option value="reject" disabled selected>R9eject</option>
                                                         <option value="success">Success</option>
                                                     @endif
                                                 </select>
@@ -103,20 +100,17 @@
                                             <label>Tanggapan Untuk Laporan Pengaduan</label>
                                             <textarea name="tanggapan_pengaduan" id="" cols="30" rows="10" class="form-control" style="resize:none" disabled>{{ $pengaduan->tanggapan_pengaduan }}</textarea>
                                         </div>
+                                        @elseif ($pengaduan->tanggapan_pengaduan == null)
+                                        <div class="form-group">
+                                            <label>Tanggapan Untuk Laporan Pengaduan</label>
+                                            <textarea name="tanggapan_pengaduan" id="" cols="30" rows="10" class="form-control " disabled> Belum ada balasan</textarea>
+                                        </div>
                                         @else
                                         <div class="form-group">
                                             <label>Tanggapan Untuk Laporan Pengaduan</label>
-                                            <textarea name="tanggapan_pengaduan" id="" cols="30" rows="10" class="form-control "></textarea>
+                                            <textarea name="tanggapan_pengaduan" id="" cols="30" rows="10" class="form-control " disabled> {{ $pengaduan->tanggapan_pengaduan }}</textarea>
                                         </div>
                                         @endif
-                                        @if ($pengaduan->status == 'success' && $pengaduan->tanggapan_pengaduan !== null)
-                                        <button type="submit" class="btn btn-icon icon-right btn-primary" disabled>Submit <i
-                                            class="fas fa-arrow-right"></i></button>
-                                        @else
-                                        <button type="submit" class="btn btn-icon icon-right btn-primary">Submit <i
-                                            class="fas fa-arrow-right"></i></button>
-                                        @endif
-                                    </form>
                                 </div>
                                 <div class="w-100 d-sm-none"></div>
                                 <div class="float-right mt-sm-0 mt-3">

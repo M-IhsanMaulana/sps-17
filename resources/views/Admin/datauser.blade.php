@@ -61,11 +61,7 @@
                                             <td>{{ $user->username }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>
-                                                @if ($user->foto == null)
-                                                <img alt="image" src="{{ asset('storage/data-image/avatar-1.png') }}" class="rounded-circle" width="35" data-toggle="tooltip" title="{{ $user->name }}">
-                                                @else
-                                                <img alt="image" src="{{ asset('storage/data-image/'. $user->foto) }}" class="rounded-circle" width="35" data-toggle="tooltip" title="{{ $user->name }}">
-                                                @endif
+                                                <img alt="image" src="{{ asset('public/data-image/avatar-2.png') }}" class="rounded-circle avatar mr-1">
                                             </td>
                                             <td>
                                                 <div class="badge badge-success text-uppercase">{{ $user->role }}</div>

@@ -69,7 +69,7 @@
                                             <td>{{ $pengaduan->judul_pengaduan }}</td>
                                             <td>{{ $pengaduan->tgl_pengaduan }}</td>
                                             <td>
-                                                <img alt="image" src="{{ asset('storage/data-image/'. $pengaduan->bukti_pengaduan) }}" class="rounded-circle" width="35" data-toggle="tooltip" title="{{ $pengaduan->judul_pengaduan }}">
+                                                <img alt="image" src="{{ asset('public/data-image/'. $pengaduan->bukti_pengaduan) }}" class="rounded-circle" width="35" data-toggle="tooltip" title="{{ $pengaduan->judul_pengaduan }}">
                                             </td>
                                             <td>
                                                 @if ($pengaduan->status == 'success')

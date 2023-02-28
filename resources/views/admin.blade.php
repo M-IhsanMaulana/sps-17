@@ -136,7 +136,7 @@
                             <div class="dropdown-list-content dropdown-list-message">
                                 <a href="#" class="dropdown-item dropdown-item-unread">
                                     <div class="dropdown-item-avatar">
-                                        <img alt="image" src="assets/img/avatar/avatar-1.png"
+                                        <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
                                             class="rounded-circle">
                                         <div class="is-online"></div>
                                     </div>
@@ -177,11 +177,7 @@
                     </li>
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                           @if (Auth::user()->foto == null)
-                           <img alt="image" src="{{ asset('storage/data-image/avatar-1.png') }}" class="rounded-circle mr-1">
-                           @else
-                           <img alt="image" src="{{ asset('storage/data-image/' . Auth::user()->foto ) }}" class="rounded-circle mr-1">
-                           @endif
+                            <img alt="image" src="{{ asset('public/data-image/avatar-2.png') }}" class="rounded-circle mr-1">
                             <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth()->user()->name }}</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -238,9 +234,10 @@
             <!-- Main Content -->
             @yield('content')
             <footer class="main-footer">
-                <div class="footer-left">
-                    Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad
-                        Nauval Azhar</a>
+                <div class="">
+                    Copyright &copy; <script>
+                        document.write(new Date().getFullYear());
+                    </script> <div class="bullet"></div> Created By <a href="#">Muhammad Ihsan Maulana</a>
                 </div>
                 <div class="footer-right">
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,10 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('user.home');
+    Route::post('/user/buat-pengaduan/post', [UserController::class, 'postPengaduan'])->name('user.buat-pengaduan.post');
+    Route::get('/user/buat-pengaduan', [UserController::class, 'buatPengaduan'])->name('user.buat-pengaduan');
+    Route::get('/user/data-pengaduan', [UserController::class, 'dataPengaduan'])->name('user.data-pengaduan');
+    Route::get('/user/data-pengaduan/detail/{id}', [UserController::class, 'detailPengaduan'])->name('user.detail-pengaduan');
 });
 
 

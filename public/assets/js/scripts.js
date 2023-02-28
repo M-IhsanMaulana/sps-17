@@ -528,93 +528,21 @@ $(function () {
         });
     });
 
-    $("#carirekening").on("change", function () {
+    $("#sebagai").on("change", function () {
         var data = $(this).val();
-        $.get(
-            `http://localhost:8000/admin/getrekening/${data}`,
-            function (response) {
-                // console.log(response);
-                response.forEach((dataItem) => {
-                    console.log(dataItem);
-                    if (dataItem.status_rek == 'disable') {
-                        $("#default-status").hide();
-                        $("#disable-status").html("Disable");
-                        $("#saldo").val(`Rp. 0,-`);
-                        $("#nama-nasabah").html(dataItem.nama_lengkap);
-                        $("#tgl").html("-");
-                        $("#no_rek").val("---");
-                        $("#jenis").val("");
-                        $("#muncul-error").html(`Data dari ${data} berhasil ditemukan status akun ${dataItem.status_rek}`)
-                    } else if (dataItem.status_rek == 'enable') {
-                        $("#default-status").hide();
-                        $("#success-status").html("Enable");
-                        $("#saldo_total").val(`Rp. ${dataItem.total_saldo},-`);
-                        $("#nama-nasabah").html(dataItem.nama_lengkap);
-                        $("#tgl_aktif").html(dataItem.created_at);
-                        $("#no_rek").val(dataItem.no_rekening);
-                        $("#jenis_data").val("deposit");
-                        $("#muncul").html(`Data dari ${data} berhasil ditemukan dengan A/N ${dataItem.nama_lengkap}`)
-                    } else {
-                        $("#default-status").hide();
-                        $("#blocked-status").html("Blocked");
-                        $("#saldo_total").val(`Rp. 0,-`);
-                        $("#nama-nasabah").html(dataItem.nama_lengkap);
-                        $("#tgl_aktif").html("-");
-                        $("#no_rek").val("---");
-                        $("#jenis").val("");
-                        $("#muncul-error").html(`Data dari ${data} berhasil ditemukan status akun ${dataItem.status_rek}, Tidak bisa melakukan transaksi`)
-                    }
-                });
-            }
-        );
 
+        if (data == 'anonim') {
+            $("#not_anonim").hide();
+            $("#anonim").removeClass('anonim');
+            $("#anonim").val('anonim');
+        } else {
+            $("#anonim").addClass('anonim');
+            $("#not_anonim").show();
+        }
         console.log(data);
         // var target = $("#muncul").html(data)
     });
 
-    $("#findrekening").on("change", function () {
-        var data = $(this).val();
-        $.get(
-            `http://localhost:8000/admin/getrekening/${data}`,
-            function (response) {
-                // console.log(response);
-                response.forEach((dataItem) => {
-                    console.log(dataItem);
-                    if (dataItem.status_rek == 'disable') {
-                        $("#default-status").hide();
-                        $("#disable-status").html("Disable");
-                        $("#saldo_total").val(`Rp. 0,-`);
-                        $("#nama-penarik").html(dataItem.nama_lengkap);
-                        $("#tgl_aktif").html("-");
-                        $("#no_rek").val("---");
-                        $("#jenis").val("");
-                        $("#muncul-error").html(`Data dari ${data} berhasil ditemukan status akun ${dataItem.status_rek}, Belum bisa melakukan transaksi`)
-                    } else if (dataItem.status_rek == 'enable') {
-                        $("#default-status").hide();
-                        $("#success-status").html("Enable");
-                        $("#saldo_total").val(`Rp. ${dataItem.total_saldo},-`);
-                        $("#nama-penarik").html(dataItem.nama_lengkap);
-                        $("#tgl_aktif").html(dataItem.created_at);
-                        $("#no_rek").val(dataItem.no_rekening);
-                        $("#jenis_data").val("debit");
-                        $("#muncul").html(`Data dari ${data} berhasil ditemukan dengan A/N ${dataItem.nama_lengkap}`)
-                    } else {
-                        $("#default-status").hide();
-                        $("#blocked-status").html("Blocked");
-                        $("#saldo_total").val(`Rp. 0,-`);
-                        $("#nama-penarik").html(dataItem.nama_lengkap);
-                        $("#tgl_aktif").html("-");
-                        $("#no_rek").val("---");
-                        $("#jenis").val("");
-                        $("#muncul-error").html(`Data dari ${data} berhasil ditemukan status akun ${dataItem.status_rek}, Tidak bisa melakukan transaksi`)
-                    }
-                });
-            }
-        );
-
-        console.log(data);
-        // var target = $("#muncul").html(data)
-    });
 
     // Bootstrap 4 Validation
     $(".needs-validation").submit(function () {

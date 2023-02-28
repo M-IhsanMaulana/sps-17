@@ -178,7 +178,7 @@
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                            @if (Auth::user()->foto == null)
-                           <img alt="image" src="{{ asset('public/data-image/avatar-2.png') }}" class="rounded-circle mr-1">
+                           <img alt="image" src="{{ asset('storage/data-image/avatar-1.png') }}" class="rounded-circle mr-1">
                            @else
                            <img alt="image" src="{{ asset('storage/data-image/' . Auth::user()->foto ) }}" class="rounded-circle mr-1">
                            @endif
@@ -210,13 +210,13 @@
                             </a>
                         </li>
                         <li class="menu-header">Master Data</li>
-                        <li class="{{ Request::segment(2) === 'data-pengaduan' ? 'active' : null }}">
-                            <a class="nav-link" href="{{ route('user.data-pengaduan') }}"><i class="fas fa-user-alt"></i>
-                                <span>Riwayat Pengaduan</span>
+                        <li class="{{ Request::segment(2) === 'data-user' ? 'active' : null }}">
+                            <a class="nav-link" href="{{ route('admin.data-user') }}"><i class="fas fa-user-alt"></i>
+                                <span>Data User</span>
                             </a>
                         </li>
-                        <li class="{{ Request::segment(2) === 'buat-pengaduan' ? 'active' : null }}">
-                            <a class="nav-link" href="{{ route('user.buat-pengaduan') }}"><i class="fas fa-school"></i>
+                        <li class="{{ Request::segment(2) === 'data-category' ? 'active' : null }}">
+                            <a class="nav-link" href="{{ route('admin.data-category') }}"><i class="fas fa-school"></i>
                                 <span>Buat Pengaduan</span>
                             </a>
                         </li>
@@ -281,8 +281,6 @@
         <!-- Template JS File -->
         <script src="{{ asset('assets/js/scripts.js') }}"></script>
         <script src="{{ asset('assets/js/custom.js') }}"></script>
-        <script src="{{ asset('assets/modules/upload-preview/assets/js/jquery.uploadPreview.min.js') }}"></script>
-        <script src="{{ asset('assets/js/page/features-post-create.js') }}"></script>
 </body>
 
 </html>
